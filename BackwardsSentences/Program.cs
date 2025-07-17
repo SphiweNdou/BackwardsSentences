@@ -12,18 +12,34 @@ while ( !int.TryParse(input, out numOfSentences))
     input = Console.ReadLine();
 }
 
-Console.WriteLine("Thank you.");
+Console.WriteLine("Thank you.\n");
 List<string> sentences = new();
 
 for (int i = 0; i < numOfSentences; i++)
 {
     Console.WriteLine("Please enter the sentence you wish to reverse:");
     var userInput = Console.ReadLine();
+
     while (string.IsNullOrEmpty(userInput))
     {
         Console.WriteLine("Please enter a valid sentence you wish to reverse:");
+        userInput = Console.ReadLine();
     }
+
+    sentences.Add(userInput);
+    Console.WriteLine("Submitted...");
 }
+
+Console.WriteLine("\nOutput");
+int count =0;
+
+foreach (var sentence in sentences)
+{
+    count++;
+    Console.WriteLine(@"Case {0}: {1}", count, ReverseSentenceHelper.ReverseSentence(sentence));
+}
+
+Console.ReadLine();
 
 public static class ReverseSentenceHelper
 {
