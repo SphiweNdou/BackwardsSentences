@@ -1,45 +1,58 @@
-﻿Console.WriteLine("**************************************************");
-Console.WriteLine("                Backward Sentences               ");
-Console.WriteLine("**************************************************\n");
+﻿/*****************  UI / Program.cs  *****************/
+DisplayBanner();
 
-Console.WriteLine("How many sentences do you wish to reverse? Please input the number:");
-var input =  Console.ReadLine();
-int numOfSentences = 0;
+int numOfSentences = CnslReadPositiveInt("How many sentences do you wish to reverse? ");
+var sentences = new List<string>(capacity: numOfSentences);
 
-while ( !int.TryParse(input, out numOfSentences)) 
+for (int i = 1; i <= numOfSentences; i++)
 {
-    Console.WriteLine("Please enter a valid numerical value:");
-    input = Console.ReadLine();
+    string sentence = CnslReadNonEmpty($"Sentence {i}/{numOfSentences}: ");
+    sentences.Add(sentence);
+    Console.WriteLine("Submitted...\n");
 }
 
-Console.WriteLine("Thank you.\n");
-List<string> sentences = new();
+Console.WriteLine("**************   Output   **************");
 
-for (int i = 0; i < numOfSentences; i++)
+for (int i = 0; i < sentences.Count; i++)
 {
-    Console.WriteLine("Please enter the sentence you wish to reverse:");
-    var userInput = Console.ReadLine();
+    string reversed = ReverseSentenceHelper.ReverseSentence(sentences[i]);
+    Console.WriteLine($"Case {i + 1}: {reversed}");
+}
 
-    while (string.IsNullOrEmpty(userInput))
+static void DisplayBanner()
+{
+    Console.WriteLine(new string('*', 50));
+    Console.WriteLine("                Backward Sentences                ");
+    Console.WriteLine(new string('*', 50));
+    Console.WriteLine();
+}
+
+static int CnslReadPositiveInt(string prompt)
+{
+    while (true)
     {
-        Console.WriteLine("Please enter a valid sentence you wish to reverse:");
-        userInput = Console.ReadLine();
+        Console.Write(prompt);
+
+        if (int.TryParse(Console.ReadLine(), out var n) && n > 0)
+            return n;
+
+        Console.WriteLine("Please enter a valid positive number.");
     }
-
-    sentences.Add(userInput);
-    Console.WriteLine("Submitted...");
 }
 
-Console.WriteLine("\nOutput");
-int count =0;
-
-foreach (var sentence in sentences)
+static string CnslReadNonEmpty(string prompt)
 {
-    count++;
-    Console.WriteLine(@"Case {0}: {1}", count, ReverseSentenceHelper.ReverseSentence(sentence));
-}
+    while (true)
+    {
+        Console.Write(prompt);
+        string? line = Console.ReadLine();
 
-Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(line))
+            return line.Trim();
+
+        Console.WriteLine("The sentence cannot be empty.");
+    }
+}
 
 public static class ReverseSentenceHelper
 {
