@@ -58,7 +58,7 @@ public static class ReverseSentenceHelper
 {
     public static string ReverseSentence(string sentence)
     {
-        var words = sentence.Split(' ');
+        var words = sentence.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         var reversedWords = words.Reverse();
         return string.Join(' ', reversedWords);
     }
