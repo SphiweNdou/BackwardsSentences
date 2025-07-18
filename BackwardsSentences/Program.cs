@@ -19,6 +19,8 @@ for (int i = 0; i < sentences.Count; i++)
     Console.WriteLine($"Case {i + 1}: {reversed}");
 }
 
+
+/*****************  Methods  *****************/
 static void DisplayBanner()
 {
     Console.WriteLine(new string('*', 50));
@@ -54,6 +56,7 @@ static string CnslReadNonEmpty(string prompt)
     }
 }
 
+/*****************  Helper Class  *****************/
 public static class ReverseSentenceHelper
 {
     public static string ReverseSentence(string sentence)
